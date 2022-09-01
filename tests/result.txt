@@ -1,0 +1,646 @@
+Test001----------------------------------
+test without arguments
+./mycurl
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb3-6429c05d75044aa63d9f0a61"
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/get"
+}
+
+===================================
+Test002----------------------------------
+test with help parameter long --help
+./mycurl --help
+MYCURL is a small CLI tool that does REST API calls using libcurl.
+ For now few features exist: disabling or not ssl verification, verbose mode, basic and bearer authentication
+ Enjoy!
+MYCURL usage :
+ --help or -h print the help
+ --version or -v print the version of MYCURL
+ --url or -u url to connect to
+ --method or -m method to use default is GET. Allowed methods are GET, PUT, PATCH, POST, DELETE
+ --verbose or -V to print verbose output
+ --auth or -a to define the authentication to use : basic or bearer
+ --no-ssl-check or -n to disable SSL verification by default SSL verification is activated
+ --user or -U to pass the user or define MYCURL_USER environment variable
+ --password or -P to pass the password or define MYCURL_PASSWORD environment variable
+ --token or -T to pass the token or define MYCURL_PASSWORD environment variable
+ --jsonfile or -j to specify json file to pass into the body part to the request
+===================================
+Test003----------------------------------
+test with help parameter short -h
+./mycurl -h
+MYCURL is a small CLI tool that does REST API calls using libcurl.
+ For now few features exist: disabling or not ssl verification, verbose mode, basic and bearer authentication
+ Enjoy!
+MYCURL usage :
+ --help or -h print the help
+ --version or -v print the version of MYCURL
+ --url or -u url to connect to
+ --method or -m method to use default is GET. Allowed methods are GET, PUT, PATCH, POST, DELETE
+ --verbose or -V to print verbose output
+ --auth or -a to define the authentication to use : basic or bearer
+ --no-ssl-check or -n to disable SSL verification by default SSL verification is activated
+ --user or -U to pass the user or define MYCURL_USER environment variable
+ --password or -P to pass the password or define MYCURL_PASSWORD environment variable
+ --token or -T to pass the token or define MYCURL_PASSWORD environment variable
+ --jsonfile or -j to specify json file to pass into the body part to the request
+===================================
+Test004----------------------------------
+test with version parameter long --version
+./mycurl --version
+MYCURL version : 1.0.0
+===================================
+Test005----------------------------------
+test with version parameter short -v
+./mycurl -v
+MYCURL version : 1.0.0
+===================================
+Test006----------------------------------
+test with method parameter long --method but no value
+./mycurl --method
+method parameter specified without value!
+===================================
+Test007----------------------------------
+test with method parameter short -m but no value
+./mycurl -m
+method parameter specified without value!
+===================================
+Test008----------------------------------
+test with multiple method parameter long -m but no value
+./mycurl --method --method
+More than one method parameter specified! Only one parameter Method is allowed!
+===================================
+Test009----------------------------------
+test with multiple method parameter long and short
+./mycurl --method GET -m PUT
+More than one method parameter specified! Only one parameter Method is allowed!
+===================================
+Test010----------------------------------
+test with url parameter long without value
+./mycurl --url
+url parameter specified without value!
+===================================
+Test011----------------------------------
+test with url parameter short without value
+./mycurl -u
+url parameter specified without value!
+===================================
+Test012----------------------------------
+test with multiple url parameter long and short without value
+./mycurl --url -u
+More than one url parameter specified! Only one parameter URL is allowed!
+===================================
+Test013----------------------------------
+test with correct method GET
+./mycurl --method GET
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb3-6df615f72cdd6d293a906a09"
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/get"
+}
+
+===================================
+Test014----------------------------------
+test with lowercase or unknown method get
+./mycurl --method get
+Incorrect value for Method parameter: Expecting one of GET, PUT, DELETE, PATCH, POST but received 'get'
+===================================
+Test015----------------------------------
+test with correct method POST
+./mycurl -m POST
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+
+===================================
+Test016----------------------------------
+test with incorrect short method value
+./mycurl -m POST
+Incorrect value for Method parameter: Expecting one of GET, PUT, DELETE, PATCH, POST but received 'xxx'
+===================================
+Test017----------------------------------
+test with correct url
+./mycurl --url https://httpbin.org/get
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb4-5b61ad3e5f6e9189075b5ebd"
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/get"
+}
+
+===================================
+Test018----------------------------------
+test with correct url but wrong method
+./mycurl --url https://httpbin.org/get -m POST
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<title>405 Method Not Allowed</title>
+<h1>Method Not Allowed</h1>
+<p>The method is not allowed for the requested URL.</p>
+
+===================================
+Test019----------------------------------
+test with correct url and correct method POST
+./mycurl --url https://httpbin.org/post -m POST
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Length": "0", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb5-354cdc2a2569f7fc42d04603"
+  }, 
+  "json": null, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/post"
+}
+
+===================================
+Test020----------------------------------
+test with correct url and correct method PATCH
+./mycurl --url https://httpbin.org/patch -m PATCH
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Length": "0", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb5-0d3974aa1c5a996e253884c8"
+  }, 
+  "json": null, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/patch"
+}
+
+===================================
+Test021----------------------------------
+test with correct url and correct method PUT
+./mycurl --url https://httpbin.org/put -m PUT
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Length": "0", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb6-5743934514401248799ef2df"
+  }, 
+  "json": null, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/put"
+}
+
+===================================
+Test022----------------------------------
+test with correct url and correct method DELETE
+./mycurl --url https://httpbin.org/put -m DELETE
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb6-69675f7e46067cdb3ad0ad0f"
+  }, 
+  "json": null, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/delete"
+}
+
+===================================
+Test023----------------------------------
+test with correct short url and long method DELETE
+./mycurl -u https://httpbin.org/put --method DELETE
+{
+  "args": {}, 
+  "data": "", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb7-54e0237e1967122d76ca6d1a"
+  }, 
+  "json": null, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/delete"
+}
+
+===================================
+Test024----------------------------------
+test with incorrect value and no parameters
+./mycurl zzzzz
+Unknown parameter or value zzzzz!
+===================================
+Test025----------------------------------
+test with verbose long parameter
+./mycurl --verbose
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb7-555651fe1601fe4a1179e28f"
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/get"
+}
+
+===================================
+Test026----------------------------------
+test with -V short parameter
+./mycurl -V
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb8-3f546b082c73897e36d8504c"
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/get"
+}
+
+===================================
+Test027----------------------------------
+test with auth short parameter with no value
+./mycurl -a
+auth parameter specified without value!
+===================================
+Test028----------------------------------
+test with auth long parameter with no value
+./mycurl --auth
+auth parameter specified without value!
+===================================
+Test029----------------------------------
+test with auth short parameter with incorrect value
+./mycurl -a ZZZ
+Incorrect value for auth parameter: Expecting one of 'basic', 'bearer' but received 'ZZZ'
+===================================
+Test029----------------------------------
+test with auth long parameter with incorrect value
+./mycurl --auth ZZZ
+Incorrect value for auth parameter: Expecting one of 'basic', 'bearer' but received 'ZZZ'
+===================================
+Test030----------------------------------
+test with auth short parameter with correct value basic but other missing parameters
+./mycurl -a basic
+user info required for basic authentication! pass --user or define MYCURL_USER environment variable!
+===================================
+Test031----------------------------------
+test with auth short parameter with correct value bearer but other missing parameters
+./mycurl -a bearer
+user info required for bearer authentication! pass --user or define MYCURL_USER environment variable!
+===================================
+Test032----------------------------------
+test with no ssl check
+./mycurl --no-ssl-check
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadb8-5035c5670835f06e2153b718"
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/get"
+}
+
+===================================
+Test033----------------------------------
+test with multiple auth parameters
+./mycurl --auth basic -a bearer
+More than one auth parameter specified! Only one parameter auth is allowed!
+===================================
+Test034----------------------------------
+test with user long parameter without value
+./mycurl --user
+user parameter specified without value!
+===================================
+Test035----------------------------------
+test with user short parameter without value
+./mycurl -u
+url parameter specified without value!
+===================================
+Test036----------------------------------
+test with user short parameter with value
+./mycurl -u toto
+Incorrect URL should start by http:// or https://
+===================================
+Test037----------------------------------
+test with password long parameter without value
+./mycurl --password
+password parameter specified without value!
+===================================
+Test038----------------------------------
+test with password short parameter without value
+./mycurl -P
+password parameter specified without value!
+===================================
+Test039----------------------------------
+test with password short parameter with value
+./mycurl -P toto
+Incoherent parameters : user or password or token passed without specifying auth parameter!
+===================================
+Test040----------------------------------
+test with user password short parameter with basic auth
+./mycurl -u https://httpbin.org/basic-auth/toto/toto -U toto -P toto -a basic
+{
+  "authenticated": true, 
+  "user": "toto"
+}
+
+Test040B----------------------------------
+test with user without password short parameter with basic auth
+./mycurl -u https://httpbin.org/basic-auth/toto/toto -U toto -a basic
+password info required for basic authentication! pass --password or define MYCURL_PASSWORD environment variable!
+===================================
+===================================
+Test041----------------------------------
+test with user password short parameter with basic auth but incorrect value passed
+./mycurl -u https://httpbin.org/basic-auth/toto/toto -U toto -P titi -a basic
+
+===================================
+Test041B----------------------------------
+test with basic auth but without user setting MYCURL_USER env variable
+./mycurl -u https://httpbin.org/basic-auth/toto/toto -P titi -a basic
+
+===================================
+Test042----------------------------------
+test with basic auth but without password setting MYCURL_PASSWORD env variable
+./mycurl -u https://httpbin.org/basic-auth/toto/toto -U toto -a basic
+{
+  "authenticated": true, 
+  "user": "toto"
+}
+
+===================================
+Test043----------------------------------
+test with basic auth but without user and password setting MYCURL_USER and MYCURL_PASSWORD env variable
+./mycurl -u https://httpbin.org/basic-auth/toto/toto -a basic
+{
+  "authenticated": true, 
+  "user": "toto"
+}
+
+===================================
+Test044----------------------------------
+test with token long parameter without value
+./mycurl --token
+token parameter specified without value!
+===================================
+Test045----------------------------------
+test with token short parameter without value
+./mycurl -T
+token parameter specified without value!
+===================================
+Test046----------------------------------
+test with token short parameter with value but without auth
+./mycurl -T mytoken123
+Incoherent parameters : user or password or token passed without specifying auth parameter!
+===================================
+Test047----------------------------------
+test with token short parameter with value with auth basic
+./mycurl -T mytoken123 -a basic
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Authorization": "Basic dG90bzp0b3Rv", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadbb-008a84a26827efb44f7bbea5"
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/get"
+}
+
+===================================
+Test048----------------------------------
+test with token short parameter with value with auth bearer
+./mycurl -T mytoken123 -a bearer
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Authorization": "Bearer mytoken123", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadbb-37a633b4552dc867202417f5"
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/get"
+}
+
+===================================
+Test048B----------------------------------
+test without token short parameter with value with auth bearer
+./mycurl -a bearer
+token info required for bearer authentication! pass --token or define MYCURL_TOKEN environment variable!
+===================================
+Test049----------------------------------
+test with token short parameter with value with auth bearer and correct url but without user info
+./mycurl -u https://httpbin.org/bearer -T mytoken123 -a bearer
+{
+  "authenticated": true, 
+  "token": "mytoken123"
+}
+
+===================================
+Test050----------------------------------
+test with token short parameter with value with auth bearer and correct url but with user info
+./mycurl -u https://httpbin.org/bearer -T mytoken123 -a bearer -U toto
+{
+  "authenticated": true, 
+  "token": "mytoken123"
+}
+
+===================================
+Test051----------------------------------
+test without token BUT with MYCURL_TOKEN envvariable
+./mycurl -u https://httpbin.org/bearer -a bearer -U toto
+{
+  "authenticated": true, 
+  "token": "mytoken123"
+}
+
+===================================
+Test052----------------------------------
+test with jsonfile long parameter without value
+./mycurl -u https://httpbin.org/get --jsonfile
+jsonfile parameter specified without value!
+===================================
+Test053----------------------------------
+test with jsonfile short parameter without value
+./mycurl -u https://httpbin.org/get -j
+jsonfile parameter specified without value!
+===================================
+Test054----------------------------------
+test with jsonfile short parameter with file that does not exist
+./mycurl -u https://httpbin.org/get -j xtetz
+Select another file! This one is not correct!
+===================================
+Test055----------------------------------
+test with jsonfile short parameter with file that exists and contain incorrect json content
+./mycurl -u https://httpbin.org/get -j test1.json
+Object expected
+Invalid json content!
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadbd-3c31c20b717bf3265efc0f86"
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/get"
+}
+
+===================================
+Test056----------------------------------
+test with jsonfile short parameter with file that exists and correct json content
+./mycurl -u https://httpbin.org/POST -m POST -j test.json
+{
+  "args": {}, 
+  "data": "{\n  \"name\": \"jsmn\",\n  \"keywords\": \"json\",\n  \"description\": \"Minimalistic JSON parser/tokenizer in C. It can be easily integrated into resource-limited or embedded projects\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/zserge/jsmn.git\"\n  },\n  \"frameworks\": \"*\",\n  \"platforms\": \"*\",\n  \"examples\": [\"example/*.c\"],\n  \"exclude\": \"test\"\n}\n", 
+  "files": {}, 
+  "form": {}, 
+  "headers": {
+    "Accept": "application/json", 
+    "Charset": "utf-8", 
+    "Content-Length": "358", 
+    "Content-Type": "application/json", 
+    "Host": "httpbin.org", 
+    "X-Amzn-Trace-Id": "Root=1-630fadbd-507a7e277b0277580eba884d"
+  }, 
+  "json": {
+    "description": "Minimalistic JSON parser/tokenizer in C. It can be easily integrated into resource-limited or embedded projects", 
+    "examples": [
+      "example/*.c"
+    ], 
+    "exclude": "test", 
+    "frameworks": "*", 
+    "keywords": "json", 
+    "name": "jsmn", 
+    "platforms": "*", 
+    "repository": {
+      "type": "git", 
+      "url": "https://github.com/zserge/jsmn.git"
+    }
+  }, 
+  "origin": "77.111.246.40", 
+  "url": "https://httpbin.org/post"
+}
+
+===================================
+Test056----------------------------------
+test with multiple jsonfile parameter
+./mycurl -j test1.json -j test.json
+More than one jsonfile parameter specified! Only one parameter jsonfile is allowed!
+===================================
+Test057----------------------------------
+test with multiple user parameter
+./mycurl --user titi -U toto
+More than one user parameter specified! Only one parameter user is allowed!
+===================================
+Test058----------------------------------
+test with multiple password parameter
+./mycurl --password titi -P toto
+More than one password parameter specified! Only one parameter password is allowed!
+===================================
+Test059----------------------------------
+test with multiple token parameter
+./mycurl --token titi -T toto
+More than one token parameter specified! Only one parameter token is allowed!
+===================================
+Test060----------------------------------
+test with multiple no ssl check parameter
+./mycurl --no-ssl-check --no-ssl-check
+More than one --no-ssl-check parameter specified! Only one --no-ssl-check parameter is allowed!
+===================================
+Test061----------------------------------
+test with multiple no ssl check parameter and verbose
+./mycurl -u https://httpbin.org/get --no-ssl-check --verbose --verbose --no-ssl-check
+More than one verbose parameter specified! Only one parameter verbose is allowed!
+===================================
+Test062----------------------------------
+test with overpass parameter user length
+./mycurl -U 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+===================================
+Test063----------------------------------
+test with overpass parameter method length
+./mycurl -m 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+Incorrect value for Method parameter: Expecting one of GET, PUT, DELETE, PATCH, POST but received '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+===================================
+Test064----------------------------------
+test with overpass parameter method length
+./mycurl -a 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+Incorrect value for auth parameter: Expecting one of 'basic', 'bearer' but received '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+===================================
+Test065----------------------------------
+test with overpass parameter password length
+./mycurl -P 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111s
+===================================
+Test066----------------------------------
+test with overpass parameter token length
+./mycurl -T 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+===================================
+Test067----------------------------------
+test with overpass parameter token length
+./mycurl -j 111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+===================================
+Test068----------------------------------
+test with overpass parameter url length
+./mycurl -u 11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+===================================

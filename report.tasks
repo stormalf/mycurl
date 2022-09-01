@@ -1,0 +1,2 @@
+pvs-studio.com/en/docs/warnings/	1	err	Help: The documentation for all analyzer warnings is available here: https://pvs-studio.com/en/docs/warnings/.
+/home/stormalf/tests_c/CLI/mycurl.c	473	err	V568 It's odd that 'sizeof()' operator evaluates the size of a pointer to a class, but not the size of the 'headers' class object.
