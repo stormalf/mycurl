@@ -116,3 +116,5 @@ Other limits are :
 ## release notes
 
 1.0.0 - Initial version
+
+1.0.1 - fixing max arguments tests to not include the null character. Adding missing Makefile.

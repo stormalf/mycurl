@@ -1,5 +1,5 @@
 #define PRODUCT "MYCURL"
-#define VERSION "1.0.0"
+#define VERSION "1.0.1"
 
 #define MAXURLLEN 201
 #define MAXLEN 101

@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
             continue;
         }
 
-        if (strlen(argv[i]) > MAXURLLEN) {
+        if (strlen(argv[i]) > MAXURLLEN - 1) {
             perror("maximum length parameter overpassed");
             exit(EXIT_FAILURE);
         }
@@ -109,7 +109,7 @@ of GET, PUT, DELETE, PATCH, POST but received '%s'\n", argv[i]);
 
         //the argument that followed the url is stored as url
         if (isUrl && !isUrlFilled) {
-            if (strlen(argv[i]) > MAXURLLEN) {
+            if (strlen(argv[i]) > MAXURLLEN - 1) {
                 perror("maximum length parameter overpassed");
                 exit(EXIT_FAILURE);
             }    
@@ -201,7 +201,7 @@ of 'basic', 'bearer' but received '%s'\n", argv[i]);
         //the argument that followed the user is stored as user
         if (isUser && !isUserFilled) {
             //check if the user length does not exceed the max allowed
-            if (strlen(argv[i]) > MAXLEN) {
+            if (strlen(argv[i]) > MAXLEN - 1) {
                 perror("maximum length parameter overpassed for user");
                 exit(EXIT_FAILURE);
                 }
@@ -227,7 +227,7 @@ of 'basic', 'bearer' but received '%s'\n", argv[i]);
         //the argument that followed the password is stored as password
         if (isPassword && !isPasswordFilled) {
             //check if the password length does not exceed the max allowed
-            if (strlen(argv[i]) > MAXLEN) {
+            if (strlen(argv[i]) > MAXLEN - 1) {
                 perror("maximum length parameter overpassed for password");
                 exit(EXIT_FAILURE);
                 }
@@ -253,7 +253,7 @@ of 'basic', 'bearer' but received '%s'\n", argv[i]);
         //the argument that followed the token is stored as token
         if (isToken && !isTokenFilled) {
             //check if the token length does not exceed the max allowed
-            if (strlen(argv[i]) > MAXLEN) {
+            if (strlen(argv[i]) > MAXLEN - 1) {
                 perror("maximum length parameter overpassed for token");
                 exit(EXIT_FAILURE);
                 }
@@ -279,7 +279,7 @@ of 'basic', 'bearer' but received '%s'\n", argv[i]);
         //the argument that followed the jsonfile is stored as jsonfile
         if (isJsonfile && !isJsonfileFilled) {
             //check if the user length does not exceed the max allowed
-            if (strlen(argv[i]) > MAXLEN) {
+            if (strlen(argv[i]) > MAXLEN - 1) {
                 perror("maximum length parameter overpassed for jsonfile");
                 exit(EXIT_FAILURE);
                 }
